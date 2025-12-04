@@ -1,0 +1,20 @@
+.header__box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 80px;
+  width: 100%;
+  background: #333333;
+  border-left: 2px solid #1f1f27;
+}
+
+.header__name {
+  color: #ffffff;
+  font-size: 20px;
+  margin-left: 20px;
+}
+
+.header__btnBox {
+  height: 80px;
+  width: 200px;
+}
