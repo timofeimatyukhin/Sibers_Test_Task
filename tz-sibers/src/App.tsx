@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Aside from './components/aside/Aside';
 import Main from './components/main/Main';
 import usersData from './data/users.json';
@@ -8,11 +9,17 @@ function App() {
 
   const typedUsersData = usersData as User[];  //convert first data to User type
 
+  const [isAnyChats, setIsAnyChats] = useState<boolean>(false);
+
+  const handleSetIsAnyChats = (value: boolean) => {
+    setIsAnyChats(value);
+    console.log('isAnyChats updated in App:', value);
+  }
 
   return (
     <>
-      <Aside usersData={typedUsersData} /> {/* pass users data as prop */}
-      <Main />
+      <Aside usersData={typedUsersData} handleSetIsAnyChats={handleSetIsAnyChats} isAnyChats={isAnyChats} /> {/* pass users data as prop */}
+      <Main isAnyChats={isAnyChats}/>
     </>
   )
 }
