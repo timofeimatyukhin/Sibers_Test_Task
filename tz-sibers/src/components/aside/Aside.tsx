@@ -7,6 +7,7 @@ import UserItem from '../userItem/UserItem';
 import AsideUsersList from '../asideUsersList/AsideUsersList';
 import type { Chat } from '../../types/types';
 import { chatList } from '../../types/chats';
+import InViewComponent from '../inView/InViewComponent';
 
 interface AsideProps {
   usersData: User[];  //i`ll use not all fields from User type, only id, name and avatar
@@ -100,18 +101,7 @@ const Aside: React.FC<AsideProps> = ({ usersData, handleSetIsAnyChats, isAnyChat
             <UserItem onSendData={handlerUserSelect} key={user.id} user={user} isChatCreated={isChatCreated}/>
           ))}
           <span className={styles.aside__noResults} style={{ visibility: ( visibleUsers.length === 0 ) ? "visible" : "hidden"}}>No users found</span>
-          {visibleCount < usersData.length && (
-            <InView as="span" //here we use InView component to implement infinite scroll
-              onChange={(inView: boolean) => {
-                if (inView) {
-                  setVisibleCount((prevCount) => Math.min(prevCount + 10, usersData.length));
-                }
-              }}
-              threshold={0.1}
-            >
-              <span className={styles.aside__loading}></span>
-            </InView> //it let us load users by parts (10 users per load)
-            )}
+          <InViewComponent visibleCount={visibleCount} totalUsersCount={filteredUsers.length} setVisibleCount={setVisibleCount} />
         </ul>
       </div>
       <button className={styles.aside__modal_btn} onClick={handleCreateChat} style={{ visibility: isModalOpened && !isChatCreated ? 'visible' : 'hidden' }} >Create</button>
