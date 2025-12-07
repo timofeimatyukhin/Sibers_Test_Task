@@ -2,6 +2,8 @@ import React from 'react';
 import styles from './asideUsersList.module.css';
 import type { Chat } from '../../types/types';
 import { chatList } from '../../types/chats';
+import { useQuery } from '@tanstack/react-query';
+import { fetchChats } from '../../api/query';
 
 
 interface AsideUsersListProps {
@@ -9,9 +11,16 @@ interface AsideUsersListProps {
 }
 
 const AsideUsersList: React.FC<AsideUsersListProps> = ({ isAnyChats }) => {
-  if (isAnyChats) {return ( 
+
+  const { data: chats = [] } = useQuery({
+    queryKey: ['chats'],
+    queryFn: fetchChats,
+  })
+
+  if (isAnyChats && chats.length > 0) {
+    return ( 
     <ul className={styles.aside__usersList}>
-      {chatList.map((chat: Chat) => (
+      {chats.map((chat: Chat) => (
         <li className={styles.aside__chatItem} key={chat.id}>
           <div className={styles.aside__chatAvatar}></div>
           <span className={styles.aside__chatName}>
