@@ -39,3 +39,11 @@ export async function addUserToChat(chatId: number, user: { id: number; name: st
   }
   return chatId;
 }
+
+export async function removeUserFromChat(chatId: number, memberId: number): Promise<number> {
+  const chat = chatList.find(c => c.id === chatId);
+  if (chat && chat.members) {
+    chat.members = chat.members.filter(m => m.id !== memberId);
+  }
+  return memberId;
+}

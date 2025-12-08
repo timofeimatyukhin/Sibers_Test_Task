@@ -3,20 +3,6 @@
   gap: 10px;
 }
 
-.btnBox__searchBtn {
-  height: 40px;
-  width: 40px;
-  border: none;
-  cursor: pointer;
-  margin-right: 10px;
-  mask: url("../../assets/images/search.svg") no-repeat center;
-  -webkit-mask: url("../../assets/images/search.svg") no-repeat center;
-  mask-size: 30px 30px;
-  -webkit-mask-size: 30px 30px;
-  background-color: #7b7c7e;
-  transition: background-color 0.3s;
-}
-
 .btnBox__searchBtn:hover {
   background: #ffffff;
 }

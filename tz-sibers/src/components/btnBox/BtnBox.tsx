@@ -20,7 +20,6 @@ const BtnBox: React.FC = () => {
   return ( 
     <>
       <div className={styles.btnBox}>
-        <button className={styles.btnBox__searchBtn}></button>
         <button 
           ref={buttonRef}
           className={styles.btnBox__addPersonBtn}

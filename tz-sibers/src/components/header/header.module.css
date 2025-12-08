@@ -26,10 +26,35 @@
   opacity: 0.7;
   color: #c1c8eb;
   margin-top: 10px;
+  gap: 6px;
 }
 
-.header__members li {
-  margin-right: 10px;
+.memberItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 10px;
+}
+
+.removeBtn {
+  border: none;
+  background: rgba(255,255,255,0.12);
+  color: #c1c8eb;
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.removeBtn:hover {
+  background: #cc2a2a;
+  color: #fff;
 }
 
 .header__wrapper {
