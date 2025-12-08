@@ -44,6 +44,16 @@
   mask-size: contain;
 }
 
+.aside__chatItem_active {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+  background-color: #474558;
+  transition: background-color 0.2s;
+}
+
+
 
 
 .aside__chatName {
@@ -53,13 +63,16 @@
   align-items: start;
   width: 200px;
   padding: 5px;
+  max-height: 80px;
 }
+
 .aside__chatName h3 {
   font-size: 18px;
   color: #ffffff;
   opacity: 0.7;
   margin-top: 10px;
 }
+
 .aside__chatName p {
   font-size: 16px;
   color: #ffffff;

@@ -1,10 +1,13 @@
 import React from 'react';
 import styles from './aside.module.css';
+import { useQuery } from '@tanstack/react-query';
+import { fetchChats } from '../../api/query';
 import { useModalState } from '../../hooks/useModalState';
 import { useUserSearch } from '../../hooks/useUserSearch';
 import { useListScroll } from '../../hooks/useListScroll';
 import { useUserSelection } from '../../hooks/useUserSelection';
 import { useChatCreation } from '../../hooks/useChatCreation';
+import { useChatsSearch } from '../../hooks/useChatsSearch';
 import type { User, UserPreview } from '../../types/types';
 import AsideUsersList from '../asideUsersList/AsideUsersList';
 import CreateChatModal from '../createChatModal/CreateChatModal';
@@ -17,6 +20,11 @@ interface AsideProps {
 }
 
 const Aside: React.FC<AsideProps> = ({ usersData, handleSetIsAnyChats, isAnyChats }) => {
+  const { data: chats = [] } = useQuery({
+    queryKey: ['chats'],
+    queryFn: fetchChats,
+  });
+
   const {
     isModalOpened,
     isModalHovered,
@@ -26,10 +34,16 @@ const Aside: React.FC<AsideProps> = ({ usersData, handleSetIsAnyChats, isAnyChat
   } = useModalState();
 
   const {
-    searchQuery,
+    searchQuery: userSearchQuery,
     filteredUsers,
-    handleSearchChange
+    handleSearchChange: handleUserSearchChange
   } = useUserSearch(usersData);
+
+  const {
+    searchQuery: chatSearchQuery,
+    filteredChats,
+    handleSearchChange: handleChatSearchChange
+  } = useChatsSearch(chats);
 
   const {
     visibleUsers,
@@ -65,7 +79,13 @@ const Aside: React.FC<AsideProps> = ({ usersData, handleSetIsAnyChats, isAnyChat
   return ( 
     <section className={styles.aside}>
       <div className={styles.aside__header}>
-        <input className={styles.aside__search_line} type="text" placeholder='Search'/>
+        <input 
+          className={styles.aside__search_line} 
+          type="text" 
+          placeholder='Search chats'
+          value={chatSearchQuery}
+          onChange={handleChatSearchChange}
+        />
         <button className={isModalOpened && !isChatCreated ? styles.aside__close_btn : styles.aside__newChat_btn} onClick={toggleModalOpen}></button>
       </div>
       <CreateChatModal 
@@ -73,8 +93,8 @@ const Aside: React.FC<AsideProps> = ({ usersData, handleSetIsAnyChats, isAnyChat
         isModalHovered={isModalHovered}
         isChatCreated={isChatCreated}
         toggleModalHover={toggleModalHover}
-        searchQuery={searchQuery}
-        handleSearchChange={handleSearchChange}
+        searchQuery={userSearchQuery}
+        handleSearchChange={handleUserSearchChange}
         visibleUsers={visibleUsers}
         handlerUserSelect={handlerUserSelect}
         visibleCount={visibleCount}
@@ -86,7 +106,7 @@ const Aside: React.FC<AsideProps> = ({ usersData, handleSetIsAnyChats, isAnyChat
         selectedUsers={selectedUsers}
         handleConfirm={handleConfirm}
       />
-      <AsideUsersList isAnyChats={isAnyChats} />
+      <AsideUsersList isAnyChats={isAnyChats} chats={filteredChats} />
     </section>
   );
 }

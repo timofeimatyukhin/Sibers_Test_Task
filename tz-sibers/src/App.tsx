@@ -18,8 +18,8 @@ function App() {
 
   return (
     <>
-      <Aside usersData={typedUsersData} handleSetIsAnyChats={handleSetIsAnyChats} isAnyChats={isAnyChats} /> {/* pass users data as prop */}
-      <Main isAnyChats={isAnyChats}/>
+      <Aside usersData={typedUsersData} handleSetIsAnyChats={handleSetIsAnyChats} isAnyChats={isAnyChats} />
+      <Main isAnyChats={isAnyChats} usersData={typedUsersData} />
     </>
   )
 }

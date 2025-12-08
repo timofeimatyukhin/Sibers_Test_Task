@@ -1,5 +1,3 @@
 import type { Chat } from './types';
 
-export const chatList: Chat[] = [
-
-];
+export const chatList: Chat[] = [];

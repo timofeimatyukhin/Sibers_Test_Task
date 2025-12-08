@@ -1,27 +1,25 @@
 import React from 'react';
 import styles from './asideUsersList.module.css';
 import type { Chat } from '../../types/types';
-import { chatList } from '../../types/chats';
-import { useQuery } from '@tanstack/react-query';
-import { fetchChats } from '../../api/query';
+import { useChat } from '../../hooks/useChat';
 
 
 interface AsideUsersListProps {
   isAnyChats: boolean;
+  chats: Chat[];
 }
 
-const AsideUsersList: React.FC<AsideUsersListProps> = ({ isAnyChats }) => {
-
-  const { data: chats = [] } = useQuery({
-    queryKey: ['chats'],
-    queryFn: fetchChats,
-  })
+const AsideUsersList: React.FC<AsideUsersListProps> = ({ isAnyChats, chats }) => {
+  const { selectedChatId, selectChat } = useChat();
 
   if (isAnyChats && chats.length > 0) {
     return ( 
     <ul className={styles.aside__usersList}>
       {chats.map((chat: Chat) => (
-        <li className={styles.aside__chatItem} key={chat.id}>
+        <li className={[styles.aside__chatItem, selectedChatId === chat.id ? styles.aside__chatItem_active : ''].join(' ')}
+          key={chat.id}
+          onClick={() => selectChat(chat.id)}
+        >
           <div className={styles.aside__chatAvatar}></div>
           <span className={styles.aside__chatName}>
             <h3>
